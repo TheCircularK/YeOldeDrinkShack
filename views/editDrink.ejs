@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Drink</title>
+</head>
+<body>
+    <h1>Edit Drink</h1>
+    <form method='POST' action="/editDrink">
+        <label for=""></label>
+
+        <!--Drink ID. Doesn't work without it for some reason-->
+        <input type="hidden" name="drinkID" id="drinkID"
+        value="<%= drinkData[0].drinkID %>"> <br>
+
+        <!--Drink Name-->
+        <label for="drinkName">Drink Name</label>
+        <input type="text" id="drinkName" name="drinkName" required
+        value="<%= drinkData[0].drinkName %>"><br>
+
+        <!--Drink Ingredients-->
+        <label for="drinkIngredients">Drink Ingredients</label>
+        <input type="text" id="drinkIngredients" name="drinkIngredients" required
+        value="<%= drinkData[0].drinkIngredients %>"><br>
+    
+        <!--Drink Price-->
+        <label for="drinkPrice">Drink Price</label>
+        <input type="number" step="any" id="drinkPrice" name="drinkPrice" required
+        value="<%= drinkData[0].drinkPrice %>"><br>
+
+        <input type="submit" value="Save Changes">
+    </form>
+    <form method="get" action="/">
+        <input type="submit" value="Cancel">
+    </form>
+
+</script>
+</body>
+</html>

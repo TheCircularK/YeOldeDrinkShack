@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--This is The Final-->
+    <!--This page is used to create a Best Drinks list-->
+    <!-- Joe Slaugh-->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best Drinks</title>
+</head>
+<body>
+    <h1>The Best Drinks</h1>
+    <!-- Output Location  -->
+    <p style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;" id="output"></p>
+    <!-- Return to home page -->
+    <form method="get" action="/">
+        <input type="submit" value="Return to home page">
+    </form>
+    <script>
+        // Drinks Class
+        class Drinks {
+            drinkID;
+            drinkName;
+            drinkIngredients;
+            drinkPrice;
+            // Drinks Constructor
+            constructor(idrinkID, sDrinkName, sDrinkIngredients, fDrinkPrice) {
+                this.drinkID = idrinkID
+                this.drinkName = sDrinkName;
+                this.drinkIngredients = sDrinkIngredients;
+                this.drinkPrice = fDrinkPrice;
+            }
+        }
+        // BestDrinks Child of Drinks Class
+        class BestDrinks extends Drinks {
+            drinkOrder;
+            //Constructor that references the drinks class constructor
+            constructor(idrinkID, sDrinkName, sDrinkIngredients, fDrinkPrice) {
+                super(idrinkID, sDrinkName, sDrinkIngredients, fDrinkPrice)
+            }
+            //Method to set Order
+            setOrder() {
+                this.drinkOrder = Math.floor(Math.random() * 999 + 1)
+            }
+        }
+        // Calling Function
+        createDrinkList();
+        // Function used to create the Drink List
+        function createDrinkList() {
+            // Create array
+            bestDrinkList = [];
+            // For loop used to create BestDrink objects inside of the bestDrinks array
+    <% for (let i = 0; i < DrinkData.length; i++) { %>
+                bestDrinkList.push(new BestDrinks(<%=DrinkData[i].drinkID %>, "<%=DrinkData[i].drinkName%>", "<%=DrinkData[i].drinkIngredients%>",<%=DrinkData[i].drinkPrice %>));
+        <% }  %>
+            // For loop used to setOrder for each item in the BestDrinks Array
+            for (let iCount = 0; iCount < bestDrinkList.length; iCount++) {
+                bestDrinkList[iCount].setOrder()
+            }
+            //Sort Function Used to sort the data in the Best Drinks array by Setorder Quantity in Ascending order
+            // Proffesor Hilton said I could use this instead of a BubbleSort
+            bestDrinkList.sort((firstItem, secondItem) => firstItem.drinkOrder - secondItem.drinkOrder)
+            // Create Output and Declaration of Output Variable
+            let myOutput = " ";
+            for (let iCount2 = 0; iCount2 < bestDrinkList.length; iCount2++) {
+                myOutput += "Drink Name: " +bestDrinkList[iCount2].drinkName + "<br>"
+                +" Ingredients: " +bestDrinkList[iCount2].drinkIngredients + "<br>"
+                +" Price: " +bestDrinkList[iCount2].drinkPrice + "<br>"
+                +" Order: " +bestDrinkList[iCount2].drinkOrder + "<br><br>"
+            }
+            // Post Output
+            document.getElementById('output').innerHTML = myOutput
+        }
+    </script>
+</body>
+</html>

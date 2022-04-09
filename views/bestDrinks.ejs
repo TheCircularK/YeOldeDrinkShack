@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>The Best Drinks In Town!!!</title>
+</head>
+<body>
+    <h1>The Best Drinks! In order!!!</h1>
+    <p id="bestDrinkList">
+        
+    </p>
+    <br>
+    <button onclick="GoHome()">Go Home</button>
+</body>
+
+</html>
+
+<script>
+    createDrinkList();
+    //This is the drink class
+    class Drinks {
+        constructor(pDrinkID, pDrinkName, pDrinkIngredients, pDrinkPrice) {
+            this.drinkID = pDrinkID;
+            this.drinkName = pDrinkName;
+            this.drinkIngredients = pDrinkIngredients;
+            this.drinkPrice = pDrinkPrice;
+        }
+    }
+
+    //Best Drinks is a child
+    class BestDrinks extends Drinks {
+        drinkOrder;
+        setOrder() {
+            drinkOrder = Math.floor(Math.random * 1000) + 1;
+        }
+    }
+
+    function createDrinkList() {
+        bestDrinksList = [];
+        //How many times?
+        let length = "<%= drinkData.length %>";
+        let drinkDataVar = "<%= JSON.stringify(drinkData) %>";
+        console.log(length);
+    
+        debugger
+        for (let i = 0; i < length; i++) {
+            drinkID = <%= drinkData[1].drinkID %>
+            drinkName = <%= drinkData[1].drinkName %>
+            drinkIngredients = <%= drinkData[1].drinkIngredients %>
+            drinkPrice = <%= drinkData[1].drinkPrice %>
+            tempObject = new BestDrinks(drinkID, drinkName, drinkIngredients, drinkPrice);
+            bestDrinksList.push(tempObject);
+    }
+
+        //Get the random numbers
+        for (let i = 0; i < bestDrinksList.length; i++) {
+            bestDrinksList[i].setOrder();
+        }
+
+        //Bubble sort
+        for (let i = 0; i < bestDrinksList.length; i++) {
+            for (let j = 0; j < bestDrinksList.length; j++) {
+                if (bestDrinksList[j].drinkOrder > bestDrinksList[j + 1].drinkOrder) {
+                    swapObject = bestDrinksList[j];
+                    bestDrinksList[j] = bestDrinksList[j + 1];
+                    bestDrinksList[j + 1] = swapObject;
+                }
+            }
+        }
+
+        //Display everything
+        for (let i = 0; i < bestDrinksList.length; i++) {
+            tempString = document.getElementById("bestDrinkList").innerHTML;
+            tempString.concat(
+                bestDrinksList[i].drinkID + " " + 
+                bestDrinksList[i].drinkName + " " + 
+                bestDrinksList[i].drinkIngredients + " " + 
+                bestDrinksList[i].drinkPrice + "<b>"
+            )
+        }
+    }
+
+    function GoHome() {
+        window.location.href = "/";
+    }
+</script>

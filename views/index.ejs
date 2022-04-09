@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Andrew's Drink Shack</title>
+</head>
+<figure>
+    <img id="explosion" src="" autostart="false" style="display: none">
+    <audio id="audio" src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Wilhelm_Scream.ogg" autostart="false"></audio>
+    <audio id="audio2" src="https://www.soundjay.com/mechanical/explosion-01.mp3" autostart="false"></audio>
+</figure>
+<body>
+    <h1>Andrew's Drink Shack</h1>
+    <table id="drinkList" border="1px solid black">
+        <% for(let i=0;i<drinkData.length;i++) { %>
+            <tr>
+                <td><img src="/delete.png" id="trashCan<%= drinkData[i].drinkID %>" height="20px" width="20px" onclick="DeleteDrink('<%= drinkData[i].drinkID %>')"></td>
+                <td><b><%= drinkData[i].drinkName %></b>    </td>
+                <td>   <%= drinkData[i].drinkIngredients %> </td>
+                <td>   <%= drinkData[i].drinkPrice %>       </td>
+                <td><img src="/edit.png" height="20px" width="20px" onclick="EditDrink('<%= drinkData[i].drinkID %>')"></td>
+            </tr>
+        <% }  %>
+    </table><br>
+
+    <!--Button to add something new-->
+    <button onclick="AddDrink()">Add drink</button>
+
+    <!--Wanna see the BEST DRINKS?!?!-->
+    <button onclick="BestDrinks()">Best Drinks</button>
+
+    <!--Log out-->
+    <button onclick="LogOut()">Logout</button>
+
+    <!--How mean should I be?-->
+    <div><b>Ridiculous?</b></div><br>
+    <input id="funnySlider" class="slider" type="range" min="1" max="2" value="1">
+
+</body>
+
+
+</html>
+
+<script>
+    //Yes, I'm making global sound constants. At least they're not global variables, eh?
+    const sound = document.getElementById("audio");
+    const sound2 = document.getElementById("audio2");
+    function PlaySound() {
+        sound.play();
+        sound2.currentTime = 0;
+        sound2.play();
+    }
+
+    function DeleteDrink(delNum) {
+        let funnyInt = document.getElementById("funnySlider").value;
+        let isUserSure = 'N';
+        if (funnyInt == 1) {
+            isUserSure = prompt("Are you sure? Y/N");
+            if (isUserSure == 'Y' || isUserSure == 'y') {
+                ReallyDeleteDrink(delNum);
+            }
+        }
+        else if (funnyInt == 2) {
+            PlaySound();
+            document.getElementById("explosion").src="explosion.gif";
+            document.getElementById("explosion").style.display="block";
+            document.getElementById("explosion").style.height="100vh";
+            document.getElementById("explosion").style.width="100vh";
+            document.getElementById("explosion").autostart="true";
+            setTimeout(ReallyDeleteDrink, 2000, delNum);
+            setTimeout(FixExplosion, 1800);
+        }        
+    }
+
+    function ReallyDeleteDrink(delNum) {
+        window.location.href = "/deleteDrink/" + delNum;
+    }
+
+    function FixExplosion() {
+        document.getElementById("explosion").style.display="none";
+        sound2.pause();
+    }
+
+    function EditDrink(modNum) {
+        window.location.href = "/editDrink/" + modNum;
+    }
+
+    function AddDrink() {
+        window.location.href = "/addDrink/";
+    }
+
+    function BestDrinks() {
+        window.location.href = "/drinkList/";
+    }
+
+    function LogOut() {
+        window.location.href = "/logout"
+    }
+</script>

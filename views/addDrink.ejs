@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Drink</title>
+</head>
+<body>
+    <h1>Add Drink</h1>
+        <form method="POST" action="/addDrink">
+            <table id="editVar">
+                <tr>
+                    <!--Drink Name-->
+                    <label for="drinkName">Drink Name </label>
+                    <input type="text" id="drinkName" name="drinkName"><br>
+                </tr>
+
+                <tr>
+                    <!--Drink Ingredients-->
+                    <label for="drinkIngredients">Drink Ingredients</label>
+                    <input type="text" id="drinkIngredients" name="drinkIngredients"><br>
+                </tr>
+                
+                <tr>
+                    <!--Drink Price-->
+                    <label for="drinkPrice">Drink Price</label>
+                    <input type="number" step="0.01" id="drinkPrice" name="drinkPrice"><br>
+                </tr>
+                    
+
+                <tr>
+                    <input type="submit" value="Save">
+                    <input type="button" value = "Cancel" onclick="Cancel()">
+                </tr>
+                
+            </table>
+                
+        </form>
+</body>
+
+<script>
+    function Cancel() {
+        window.location.href = "/";
+    }
+</script>
+
+</html>
